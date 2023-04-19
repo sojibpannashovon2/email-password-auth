@@ -1,0 +1,15 @@
+.topo {
+  padding: 10px;
+  background-color: rgb(220, 229, 229);
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.single {
+  padding: 10px;
+  width: 60%;
+}
