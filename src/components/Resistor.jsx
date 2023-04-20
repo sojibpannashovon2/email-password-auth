@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../App.css'
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth"
 import app from '../firebase/firebase.init';
+import { Link } from 'react-router-dom';
 
 
 const auth = getAuth(app);
@@ -9,7 +10,7 @@ const auth = getAuth(app);
 
 const Resistor = () => {
     const [errorBT, setErrorBT] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useState('')
 
     const handleEmail = (event) => {
         console.log(event.target.value);
@@ -24,6 +25,7 @@ const Resistor = () => {
         console.log(event.target);
         const email = event.target.email.value;
         const password = event.target.password.value;
+        console.log(email, password);
         // console.log(event.target.password.value);
 
         //.....................validation check........................
@@ -66,12 +68,22 @@ const Resistor = () => {
                 event.target.reset();
                 //set successfully registration 
                 setSuccess("Registration Successfulled !!!")
+                //email verification caller function
+                emailVerificationByDeveloper(loderUgger);
+
             })
             .catch(error => {
                 console.log(error.code);
                 console.log(error.message);
                 //set password error
                 setErrorBT(error.message);
+            })
+    }
+    const emailVerificationByDeveloper = (user) => {
+        sendEmailVerification(user)
+            .then(result => {
+                console.log(result);
+                alert("Please verify your email eddress")
             })
     }
     return (
@@ -86,6 +98,7 @@ const Resistor = () => {
                 <input placeholder='resister please' className='single' type="submit" name="Resistor" id="Resistor" />
                 <br />
                 <hr />
+                <p className='mt-4' ><small>Already have an account?  <Link to='/login'> Login</Link>  now !</small></p>
                 <p className='text-center text-danger fw-bold'>{errorBT}</p>
                 <p className='text-center text-success fw-bold'>{success}</p>
             </form>
