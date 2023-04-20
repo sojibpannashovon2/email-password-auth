@@ -4,11 +4,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from "./components/layout/Main";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Resistor from "./components/Resistor";
+import BootstrapResistor from "./components/BootstrapResistor";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
       {
         path: '/resistor',
         element: <Resistor></Resistor>
-      }
+      },
+      {
+        path: '/resistorBT',
+        element: <BootstrapResistor></BootstrapResistor>
+      },
     ]
   },
 ]);
