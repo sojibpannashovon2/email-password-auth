@@ -3,7 +3,7 @@ import '../App.css'
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth"
 import app from '../firebase/firebase.init';
 import { Link } from 'react-router-dom';
-
+import swal from 'sweetalert';
 
 const auth = getAuth(app);
 
@@ -12,6 +12,15 @@ const Resistor = () => {
     const [errorBT, setErrorBT] = useState('');
     const [success, setSuccess] = useState('')
 
+    //handle sweet alert function
+    function handleSuccessSweetAlert() {
+        swal({
+            title: "SuccessFull",
+            text: "Registration Successfulled !!! Thanks for your resistration",
+            icon: "success",
+            button: "OK"
+        });
+    }
     const handleEmail = (event) => {
         console.log(event.target.value);
     }
@@ -66,7 +75,8 @@ const Resistor = () => {
                 console.log(loderUgger);
                 setErrorBT('');
                 event.target.reset();
-                //set successfully registration 
+                //set successfully registration
+                handleSuccessSweetAlert();
                 setSuccess("Registration Successfulled !!!")
                 //email verification caller function
                 emailVerificationByDeveloper(loderUgger);

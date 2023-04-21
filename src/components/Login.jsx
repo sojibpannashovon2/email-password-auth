@@ -4,7 +4,12 @@ import { useState } from 'react';
 import app from '../firebase/firebase.init';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import Button from 'react-bootstrap/Button';
+import { ToastContainer, toast } from "react-toastify";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const auth = getAuth(app);
 const Login = () => {
@@ -12,6 +17,13 @@ const Login = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('')
     const emailRef = useRef();
+
+    //Add ToolTips 
+    const handleClick = () => {
+        toast.success("Successfully LogIn !!!", {
+            position: toast.POSITION.TOP_CENTER
+        });
+    };
 
     //Sweet alert function
     function handleButtonClick() {
@@ -22,6 +34,8 @@ const Login = () => {
             button: "OK"
         });
     }
+
+
     //show password
 
     const [password, setPassword] = useState('');
@@ -77,6 +91,7 @@ const Login = () => {
                 //     alert("how are you")
                 // }
                 // event.target.reset();
+                handleClick();
                 setSuccess('Successfully LogIn');
                 setError('')
 
@@ -145,9 +160,9 @@ const Login = () => {
                 <p className='text-center text-danger fw-bold'>{error}</p>
                 <p className='text-center text-success fw-bold'>{success}</p>
             </form>
-            <Button variant="primary" onClick={handleButtonClick}>
-                Show Alert
-            </Button>
+
+
+            <ToastContainer></ToastContainer>
         </div>
     );
 };
