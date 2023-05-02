@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css'
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth"
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from "firebase/auth"
 import app from '../firebase/firebase.init';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -34,6 +34,7 @@ const Resistor = () => {
         console.log(event.target);
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const name = event.target.name.value;
         console.log(email, password);
         // console.log(event.target.password.value);
 
@@ -57,14 +58,7 @@ const Resistor = () => {
             return;
         }
 
-        // const isValidLength = /^.{10,16}$/;
-        // else if (!(/^.{10,16}$/).test(password)) {
-        //     setErrorBT("Password must be 10-16 Characters Long.");
-        // }
 
-        // else {
-        //     return null;
-        // }
 
 
 
@@ -80,6 +74,7 @@ const Resistor = () => {
                 setSuccess("Registration Successfulled !!!")
                 //email verification caller function
                 emailVerificationByDeveloper(loderUgger);
+                updateUserData(loderUgger, name);
 
             })
             .catch(error => {
@@ -96,11 +91,25 @@ const Resistor = () => {
                 alert("Please verify your email eddress")
             })
     }
+
+    const updateUserData = (user, name) => {
+        updateProfile(user, {
+            displayName: name
+        })
+            .then(result => {
+                alert("profile Name updated !!!")
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
     return (
         <div>
             <h1 style={{ textAlign: "center", marginTop: "20px" }}>Resistor</h1>
 
             <form onSubmit={handleSubmit} className='topo' >
+                <input placeholder='Your name please' className='single' type="text" name="name" id="name" required />
+                <br />
                 <input onChange={handleEmail} placeholder='Your email please' className='single' type="email" name="email" id="email" required />
                 <br />
                 <input onBlur={handlePasswordBlur} placeholder='Your password please' className='single' type="password" name="password" id="password" required />
